@@ -2,15 +2,20 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('plant_instances', table => {
     table.increments()
-    table.integer('progress').notNullable().defaultsTo(0)
+    table.integer('progress').notNullable().defaultTo(0)
+
     table.integer('user_id').notNullable()
+    table.foreign('user_id').references('id').inTable('users')
+
     table.integer('plant_types_id').notNullable()
-    table.boolean('completed').notNullable().defaultsTo(false)
+    table.foreign('plant_types_id').references('id').inTable('plant_types')
+
+    table.boolean('completed').notNullable().defaultTo(false)
     table.date('completed_on').defaultTo(null)
     table.timestamps(true, true)
 
-    table.foreign('user_id').references('users.id')
-    table.foreign('plant_types_id').references('plant_types.id')
+
+
   })
 };
 

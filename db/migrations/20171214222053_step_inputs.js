@@ -3,8 +3,9 @@ exports.up = function(knex, Promise) {
     return knex.schema.createTable('step_inputs', table => {
       table.increments()
       table.integer('user_id').notNullable()
-      table.foreign('user_id').references('users.id')
-      table.integer('number_of_steps').notNullable().defaultsTo(0)
+      table.foreign('user_id').references('id').inTable('users')
+
+      table.integer('number_of_steps').notNullable().defaultTo(0)
       table.timestamps(true, true)
     })
 };
