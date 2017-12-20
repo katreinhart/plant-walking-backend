@@ -2,18 +2,20 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 2999
 const bodyParser = require ('body-parser')
 const morgan = require('morgan')
 const path = require('path')
 
-const router = require('./routes/users-router')
+const usersRouter = require('./routes/users-router')
+const stepsRouter = require('./routes/steps-router')
 
 app.use(cors())
 app.use(bodyParser.json())
 app.use(morgan('dev'))
 
-app.use('/api', router)
+app.use('/api/users', usersRouter)
+app.use('/api/steps', stepsRouter)
 
 app.use((req, res)=> {
   let status = 404

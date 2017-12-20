@@ -3,7 +3,7 @@ console.log('controller here');
 
 class UsersController {
 
-  static index(req, res, next){
+  static getAll(req, res, next){
     Model.all().then(response => {
       res.json({  })
     })

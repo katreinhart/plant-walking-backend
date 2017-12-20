@@ -2,7 +2,7 @@ const db = require('../db/connection.js')
 console.log('model here');
 
 
-class Model {
+class UsersModel {
 
   static all(){
     return db(users)
@@ -11,4 +11,4 @@ class Model {
 }
 
 
-module.exports = Model;
+module.exports = UsersModel;
