@@ -19,7 +19,7 @@ class UsersModel {
   }
 
   static signup ({email, password}) {
-    console.log('------- user model signup function -------')
+    // console.log('------- user model signup function -------')
     return db('users').where({ email }).first()
       .then(user => {
         if(user) throw new Error()
@@ -30,9 +30,10 @@ class UsersModel {
   }
 
   static login (email, password) {
+    // console.log('------- user model login function -------')
     return db('users').where({ email })
       .then(user => {
-        if(bcrypt.compareSync(password, user[0].passhash)) {
+        if(bcrypt.compareSync(password, user[0].password)) {
           const sub = { id: user[0].id, email: user[0].email }
           return Token.signToken(sub)          
         } else {

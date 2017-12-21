@@ -1,8 +1,7 @@
 const Model = require('../models/users-model.js')
-console.log('controller here');
+console.log('users controller here');
 
 const fields = ['email', 'password']
-
 
 class UsersController {
 
@@ -38,16 +37,29 @@ class UsersController {
   }
 
   static createNewUser(req, res, next) {
-    console.log('users controller create new')
+    console.log('------- user controller signup function -------')
     Model.signup(req.body).then(response => {
       console.log(response)
       res.status(200).json({ message: 'User created' })
     })
     .catch(err => {
       console.log(err)
-      res.status(400).json({ error: 'there were errors', err })
+      next({ error: err })
     })
   }
+
+  static loginUser (req, res, next) {
+    console.log('------- user controller login function -------')
+    const { email, password } = req.body
+    console.log(email, password)
+    Model.login(email, password)
+      .then(token => res.json({ token }))
+      .catch(err => {
+        console.log(err)
+        next({ error: err.body })
+      })
+  }
+
 }
 
 module.exports = UsersController

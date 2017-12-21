@@ -1,7 +1,7 @@
 const { promisify } = require('util')
 const { sign, verify } = require('jsonwebtoken')
 const verifyAsync = promisify(verify)
-const secret = process.env.SECRET_KEY
+const secret = process.env.SECRET_KEY || 'SECRET KEY'
 
 class Token {
   static signToken ({ id, email }) {

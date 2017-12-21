@@ -4,6 +4,6 @@ console.log('users router');
 
 router.get('/', controller.getAll)
 router.post('/register', controller.createNewUser)
-// router.post('/login', controller.loginUser)
+router.post('/login', controller.loginUser)
 
 module.exports = router;
