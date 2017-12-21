@@ -17,11 +17,17 @@ app.use(morgan('dev'))
 app.use('/api/users', usersRouter)
 app.use('/api/steps', stepsRouter)
 
-app.use((req, res)=> {
+app.use((err, req, res, next) => {
+  const status = err.status || 500
+  res.status(status).json({ error: err })
+})
+
+app.use((req, res, next)=> {
   let status = 404
   let message = `Could not ${req.method}${req.path}`
   res.status(status).json({status, message})
 })
+
 
 app.listen(port, () => {
   console.log('Listening on port:', port)
