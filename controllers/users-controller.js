@@ -29,7 +29,7 @@ class UsersController {
 
   static prune(req, res, next) {
     Object.keys(req.body).forEach(key => {
-      if(!fields.includes(keys)) {
+      if(!fields.includes(key)) {
         delete req.body.key
       }
     })
@@ -49,9 +49,7 @@ class UsersController {
   }
 
   static loginUser (req, res, next) {
-    console.log('------- user controller login function -------')
     const { email, password } = req.body
-    console.log(email, password)
     Model.login(email, password)
       .then(token => res.json({ token }))
       .catch(err => {
@@ -59,7 +57,6 @@ class UsersController {
         next({ error: err.body })
       })
   }
-
 }
 
 module.exports = UsersController
