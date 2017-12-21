@@ -1,6 +1,6 @@
 
 exports.up = function(knex, Promise) {
-    return knex.schema.createTable('step_inputs', table => {
+    return knex.schema.createTable('steps', table => {
       table.increments()
       table.integer('user_id').notNullable()
       table.foreign('user_id').references('id').inTable('users')
@@ -11,5 +11,5 @@ exports.up = function(knex, Promise) {
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTable('step_inputs')
+  return knex.schema.dropTable('steps')
 };
