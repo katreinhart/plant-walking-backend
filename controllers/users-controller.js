@@ -46,6 +46,7 @@ class UsersController {
   }
 
   static createNewUser(req, res, next) {
+    console.log('users controller create new')
     Model.signup(req.body).then(res => {
       res.status(200).json({ })
     })

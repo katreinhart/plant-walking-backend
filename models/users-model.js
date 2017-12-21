@@ -1,6 +1,6 @@
 const db = require('../db/connection.js')
 console.log('model here');
-const bcrypt = require('bcrypt-as-promised')
+const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const Token = require('./token-model')
 
@@ -11,13 +11,21 @@ class UsersModel {
   //   return db('users')
   // }
 
-  static signup (email, password) {
+  static create({ email, password }) {
+    console.log('creating the user')
+    return db('users').insert({email, password}).returning('*')
+  }
+
+  static signup ({email, password}) {
+    console.log('------- user model -------')
+    console.log(email, password)
     return db('users').where({ email }).first()
       .then(user => {
         if(user) throw new Error()
+        console.log('no user')
         const passhash = bcrypt.hashSync(password, 8)
-
-        return User.create({ email, passhash })
+        console.log(passhash)
+        return UsersModel.create({ email, passhash })
       })
       .catch(() => { throw new Error('User signup failed') })
   }
