@@ -6,17 +6,9 @@ const fields = ['email', 'password']
 
 class UsersController {
 
-  // static getAll(req, res, next){
-  //   Model.all().then(response => {
-  //     res.json({  })
-  //   })
-  // }
-
-  static emailIsUnique(req, res, next) {
-    Model.exists(req.body.email).then(exists => {
-      next({ error: 'User already exists'})
-    }).catch(err => {
-      next()
+  static getAll(req, res, next){
+    Model.all().then(response => {
+      res.json({ users: response })
     })
   }
 
@@ -47,8 +39,13 @@ class UsersController {
 
   static createNewUser(req, res, next) {
     console.log('users controller create new')
-    Model.signup(req.body).then(res => {
-      res.status(200).json({ })
+    Model.signup(req.body).then(response => {
+      console.log(response)
+      res.status(200).json({ message: 'User created' })
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(400).json({ error: 'there were errors', err })
     })
   }
 }
