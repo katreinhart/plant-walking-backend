@@ -12,10 +12,10 @@ class StepsController {
   static addSteps(req, res, next){
     // user_id, number_of_steps
     // req.body.user_id req.body.number_of_steps
-
+    console.log('in addSteps');
     let body = {user_id: req.body.user_id, number_of_steps: req.body.number_of_steps}
     console.log(body);
-    Model.addSteps(body).then(res => {
+    Model.addSteps(body).then(result => {
 
       res.status(200).json({body})
 
@@ -26,6 +26,7 @@ class StepsController {
     console.log('in validate',req.body);
     if((req.body.user_id && Number.isInteger(req.body.user_id))
     && (req.body.number_of_steps && Number.isInteger(req.body.number_of_steps))) {
+      console.log('in validate before next');
       next()
     }
     else{

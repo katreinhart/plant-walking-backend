@@ -9,7 +9,7 @@ class StepsModel {
   }
 
   static addSteps(body){
-    return db('step_inputs').insert(body).returning('*')
+    return db('steps').insert(body).returning('*')
   }
 
 }
