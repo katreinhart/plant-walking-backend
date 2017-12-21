@@ -20,7 +20,7 @@ app.use('/api/steps', stepsRouter)
 app.use((req, res)=> {
   let status = 404
   let message = `Could not ${req.method}${req.path}`
-  res.status(status).json({status, messag})
+  res.status(status).json({status, message})
 })
 
 app.listen(port, () => {
