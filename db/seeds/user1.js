@@ -9,5 +9,8 @@ exports.seed = function(knex, Promise) {
         {id: 2, email: 'planty2@gmail.com', password:'password'},
         {id: 3, email: 'planty3@gmail.com', password:'password'}
       ]);
-    });
+    })
+    .then(()=>{
+      return knex.raw(`SELECT setval('users_id_seq', (SELECT MAX(id) FROM users))`)
+    })
 };
