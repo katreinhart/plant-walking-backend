@@ -9,6 +9,7 @@ const path = require('path')
 
 const usersRouter = require('./routes/users-router')
 const stepsRouter = require('./routes/steps-router')
+const plantInstanceRouter = require('./routes/plant-instance-router')
 
 app.use(cors())
 app.use(bodyParser.json())
@@ -16,6 +17,7 @@ app.use(morgan('dev'))
 
 app.use('/api/users', usersRouter)
 app.use('/api/steps', stepsRouter)
+app.use('/api/plant-instance', plantInstanceRouter)
 
 app.use((err, req, res, next) => {
   const status = err.status || 500
