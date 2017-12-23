@@ -1,4 +1,7 @@
 const Model = require('../models/steps-model.js')
+const PlantInstanceModel = require('../models/plant-instance-model.js')
+const UserProfilesModel = require('../models/user-profiles-model.js')
+const PlantTypesModel = require ('../models/plant-types-model.js')
 console.log('controller here');
 
 class StepsController {
@@ -24,10 +27,24 @@ class StepsController {
     let body = {user_id: req.body.user_id, number_of_steps: req.body.number_of_steps}
 
     Model.addSteps(body).then(result => {
-      console.log(result);
       //update progress with added steps
       //user_id
-      
+
+      let stepsToAdd = result[0].number_of_steps
+      UserProfilesModel.getOneUserProfile(result[0].user_id).then(result => {
+        let plant_instances_id = result[0].plant_instances_id
+
+        PlantInstanceModel.getOne(plant_instances_id).then(result => {
+
+          let progress = result[0].progress + stepsToAdd
+          //PlantTypesModel.getOnePlantType()
+          // Need to get number of steps needed for completion
+          // check to if completed
+          })
+
+        })
+
+
       res.status(200).json({body})
 
     })

@@ -6,11 +6,10 @@ class PlantInstanceModel {
   static getOne(id){
   console.log('getOne', id);
     return db('plant_instances')
-    .where({id}) 
+    .where({id})
   }
 
   static getAll(){
-    console.log('hey fucker');
     return db('plant_instances')
   }
 

@@ -11,6 +11,7 @@ const usersRouter = require('./routes/users-router')
 const stepsRouter = require('./routes/steps-router')
 const userProfilesRouter = require('./routes/user-profiles-router')
 const plantInstanceRouter = require('./routes/plant-instance-router')
+const plantTypesRouter = require('./routes/plant-types-router')
 
 app.use(cors())
 app.use(bodyParser.json())
@@ -20,6 +21,7 @@ app.use('/api/users', usersRouter)
 app.use('/api/steps', stepsRouter)
 app.use('/api/user-profiles', userProfilesRouter)
 app.use('/api/plant-instances', plantInstanceRouter)
+app.use('/api/plant-types', plantTypesRouter)
 
 app.use((err, req, res, next) => {
   const status = err.status || 500
