@@ -1,5 +1,5 @@
 const db = require('../db/connection.js')
-console.log('PI model');
+// console.log('PI model');
 
 class PlantInstanceModel {
 
@@ -7,6 +7,19 @@ class PlantInstanceModel {
   console.log('getOne', id);
     return db('plant_instances')
     .where({id})
+  }
+
+  static addToProgress(stepsToAdd, id){
+    return db('plant_instances')
+    .where({id})
+    .increment('progress', stepsToAdd)
+  }
+
+  static resetProgress(id){
+    return db('plant_instances')
+    .where({id})
+    .update('progress', 0)
+
   }
 
   static getAll(){
