@@ -19,10 +19,8 @@ class PlantInstanceController {
   }
 
   static getOne(req, res, next){
-    console.log('getOne PI controller');
-    console.log('id', req.params.id)
-    Model.getOne(req.params.id).then( response => {
 
+    Model.getOne(req.params.id).then( response => {
       res.json({response})
     })
   }

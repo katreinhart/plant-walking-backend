@@ -19,6 +19,7 @@ class PlantInstanceModel {
     return db('plant_instances')
     .where({id})
     .update('progress', 0)
+    .update('completed', true)
 
   }
 

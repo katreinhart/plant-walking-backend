@@ -20,55 +20,52 @@ class StepsController {
     })
   }
 
+  //sorry this functions hideous
   static addSteps(req, res, next){
-    // user_id, number_of_steps
-    // req.body.user_id req.body.number_of_steps
     let body = {user_id: req.body.user_id, number_of_steps: req.body.number_of_steps}
-
+    // adds steps to the steps db
     Model.addSteps(body).then(result => {
-      //update progress with added steps
-      //user_id
 
       let stepsToAdd = result[0].number_of_steps
-
+      //gets user profile to grab current plant id
       UserProfilesModel.getOneUserProfile(result[0].user_id).then(result => {
         let plant_instances_id = result[0].plant_instances_id
-
+        // grabs current progress
         PlantInstanceModel.getOne(plant_instances_id).then(result => {
           let progress = result[0].progress + stepsToAdd
-          //set current progress
+          //sets current progress
           PlantInstanceModel.addToProgress(stepsToAdd, plant_instances_id).then(result => {
             return result
-          })
-          PlantTypesModel.getOnePlantType(result[0].plant_types_id).then (result => {
-            if(progress >= result.steps_required){
-              StepsController.resetProgress(plant_instances_id)
-              console.log('yay you finished your plant');
-            }
-          })
+            })
+            // checks if plant is completed
+            PlantTypesModel.getOnePlantType(result[0].plant_types_id).then (result => {
+              //if completed reset progress to zero in plant_instances db
+              if(progress >= result.steps_required){
+                StepsController.resetProgress(plant_instances_id)
+                console.log('yay you finished your plant');
+
+              }
+            })
+
           // Need to get number of steps needed for completion
           // check if completed
-
           })
-
         })
-
-
       res.status(200).json({body})
 
     })
   }
 
-    //sets progess to zero
-   static resetProgress(id){
+    //sets progess to zero and completed to true
+  static resetProgress(id){
     PlantInstanceModel.resetProgress(id).then(result => {
-    })
+      })
   }
+
   static validate(req, res, next){
-    console.log('in validate',req.body);
     if((req.body.user_id && Number.isInteger(req.body.user_id))
     && (req.body.number_of_steps && Number.isInteger(req.body.number_of_steps))) {
-      console.log('in validate before next');
+
       next()
     }
     else{
