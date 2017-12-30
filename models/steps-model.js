@@ -4,8 +4,13 @@ console.log('steps model here');
 
 class StepsModel {
 
-  static all(){
+  static getAll(){
     return db('steps')
+  }
+
+  static getAllUserSteps(user_id){
+    return db('steps')
+    .where({user_id}).returning('*')
   }
 
   static addSteps(body){
