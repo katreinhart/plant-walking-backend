@@ -23,7 +23,7 @@ class StepsController {
   }
 
   static validate(req, res, next){
-    console.log('in validate',req.body);
+    console.log('in validate', req.body);
     if((req.body.user_id && Number.isInteger(req.body.user_id))
     && (req.body.number_of_steps && Number.isInteger(req.body.number_of_steps))) {
       console.log('in validate before next');
