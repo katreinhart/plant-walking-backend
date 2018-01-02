@@ -19,37 +19,6 @@ class StepsController {
     })
   }
 
-  //sorry this functions hideous
-  // static addSteps(req, res, next){
-  //   console.log('add steps function')
-  //   const body = {user_id: req.body.user_id, number_of_steps: req.body.number_of_steps}
-  //   Model.addSteps(body).then(result => {
-  //     console.log('added steps to steps model')
-  //     const stepsToAdd = result[0].number_of_steps
-  //     UserProfilesModel.getOneUserProfile(result[0].user_id).then(user => {
-  //       console.log('get one user profiles')
-  //       console.log(user)
-  //       const plant_instances_id = user[0].plant_instances_id
-  //       PlantInstanceModel.getOne(plant_instances_id).then(plant => {
-  //         console.log('plant', plant)
-  //         const progress = plant[0].progress + stepsToAdd
-  //         PlantInstanceModel.addToProgress(stepsToAdd, plant_instances_id).then(([plantInstance]) => {
-  //           console.log('plantInstance', plantInstance)
-  //           PlantTypesModel.getOnePlantType(plantInstance.plant_types_id).then(plantType => {
-  //             console.log('plant type', plantType)
-  //             if(progress >= plantType.steps_required){
-  //               StepsController.resetProgress(plant_instances_id)
-  //               console.log('yay you finished your plant');
-  //             }
-  //           })
-  //           return plantInstance //?
-  //           })
-  //         })
-  //       })
-  //     res.status(200).json({body})
-  //   })
-  // }
-
   static addSteps(req, res, next) {
     const body = {user_id: req.body.user_id, number_of_steps: req.body.number_of_steps}
     Model.addSteps(body).then(result => {
