@@ -30,12 +30,11 @@ class UsersModel {
   }
 
   static login (email, password) {
-    // console.log('------- user model login function -------')
     return db('users').where({ email })
       .then(user => {
         if(bcrypt.compareSync(password, user[0].password)) {
           const sub = { id: user[0].id, email: user[0].email }
-          return Token.signToken(sub)          
+          return Token.signToken(sub)
         } else {
           throw new Error('Login failed')
         }
