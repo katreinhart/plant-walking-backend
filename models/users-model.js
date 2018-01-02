@@ -26,20 +26,21 @@ class UsersModel {
         const passhash = bcrypt.hashSync(password, 8)
         return UsersModel.create({ email, passhash })
       })
-      .catch(() => { throw new Error('User signup failed') })
+      // .catch(() => { throw new Error('User signup failed') })
   }
 
   static login (email, password) {
     return db('users').where({ email })
       .then(user => {
+
         if(bcrypt.compareSync(password, user[0].password)) {
           const sub = { id: user[0].id, email: user[0].email }
           return Token.signToken(sub)
         } else {
-          throw new Error('Login failed')
+          throw new Error('Login failed: inncorrect password or username')
         }
       })
-      .catch(() => { throw new Error('Login failed') })
+      // .catch((err) => { throw new Error(err) })
   }
 }
 

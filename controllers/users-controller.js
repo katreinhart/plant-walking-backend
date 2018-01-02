@@ -55,8 +55,8 @@ class UsersController {
         console.log('token:', token);
         res.json({ token })})
       .catch(err => {
-        console.log(err)
-        next({ error: err.body })
+        console.log('user controller', err);
+        next({ status:401, err })
       })
   }
 }
