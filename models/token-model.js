@@ -4,8 +4,7 @@ const verifyAsync = promisify(verify)
 const secret = process.env.SECRET_KEY || 'SECRET KEY'
 
 class Token {
-  static signToken ({ id, email }) {
-    const sub = { id, email }
+  static signToken (sub) {
     const expiresIn = '1 week'
     const token = sign({ sub, expiresIn }, secret)
     return token

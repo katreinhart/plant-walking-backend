@@ -13,6 +13,7 @@ class PlantInstanceModel {
     return db('plant_instances')
     .where({id})
     .increment('progress', stepsToAdd)
+    .returning('*')
   }
 
   static resetProgress(id){
