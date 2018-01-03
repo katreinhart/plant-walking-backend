@@ -27,6 +27,15 @@ class PlantInstanceController {
       res.json({ plant_instances: plantInstances })
     })
   }
+
+  static getGarden(req, res, next) {
+    let id = req.params.id
+
+    Model.getGarden(id).then(garden => {
+      console.log('controller get Garden', garden);
+      res.json({garden})
+    })
+  }
 }
 
 module.exports = PlantInstanceController
