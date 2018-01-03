@@ -24,7 +24,7 @@ app.use('/api/plant-instances', plantInstanceRouter)
 app.use('/api/plant-types', plantTypesRouter)
 
 app.use((err, req, res, next) => {
-  console.log('error is:', err.err);
+  console.log('error is:', err.err || err);
   const status = err.status || 500
   res.status(status).json({ error: err })
 })

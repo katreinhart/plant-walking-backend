@@ -8,6 +8,7 @@ exports.seed = function(knex, Promise) {
         {id: 1, name: 'sunflower', svg:'placeholder', steps_required:100},
         {id: 2, name: 'orchid', svg:'placeholder', steps_required:1000},
         {id: 3, name: 'daisy', svg:'placeholder', steps_required:500},
+        {id: 4, name: 'dumpy daisy', svg:'placeholder', steps_required:500},
       ]);
     })
     .then(()=>{

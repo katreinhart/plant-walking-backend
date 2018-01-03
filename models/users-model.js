@@ -29,10 +29,11 @@ class UsersModel {
       // .catch(() => { throw new Error('User signup failed') })
   }
 
+
+
   static login (email, password) {
     return db('users').where({ email })
       .then(user => {
-
         if(bcrypt.compareSync(password, user[0].password)) {
           const sub = { id: user[0].id, email: user[0].email }
           return Token.signToken(sub)
@@ -40,7 +41,6 @@ class UsersModel {
           throw new Error('Login failed: inncorrect password or username')
         }
       })
-      // .catch((err) => { throw new Error(err) })
   }
 }
 
