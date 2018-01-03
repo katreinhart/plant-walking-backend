@@ -10,21 +10,22 @@ class UsersModel {
     return db('users')
   }
 
-  static create({ email, passhash: password }) {
+  static create({ email, passhash: password, username }) {
     console.log('------- user model create function -------')
 
-    db('users').insert({email, password}).returning('*').then(result => {
-      return result
+    return db('users').insert({email, password}).returning('*').then(result => {
+      console.log( result[0].id, username );
+      return ({user_id:result[0].id, username})
     })
   }
 
-  static signup ({email, password}) {
+  static signup ({email, password, username}) {
     // console.log('------- user model signup function -------')
     return db('users').where({ email }).first()
       .then(user => {
         if(user) throw new Error()
         const passhash = bcrypt.hashSync(password, 8)
-        return UsersModel.create({ email, passhash })
+        return UsersModel.create({ email, passhash, username })
       })
       // .catch(() => { throw new Error('User signup failed') })
   }

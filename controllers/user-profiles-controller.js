@@ -20,7 +20,7 @@ class userProfilesController {
       user_id: req.body.user_id,
       display_name:req.body.display_name,
       plant_instances_id: req.body.plant_instances_id,
-      is_admin: req.body.is_admin,
+      is_admin: false,
     }
     console.log('body', body);
 

@@ -3,7 +3,7 @@ const UserProfileModel = require('../models/user-profiles-model.js')
 const PlantInstanceModel = require('../models/plant-instance-model.js')
 console.log('users controller here');
 const jwt = require('jsonwebtoken')
-const fields = ['email', 'password']
+const fields = ['username','email', 'password']
 
 class UsersController {
 
@@ -62,8 +62,13 @@ class UsersController {
 
   static createNewUser(req, res, next) {
     console.log('------- user controller signup function -------')
+    console.log(req.body);
     Model.signup(req.body).then(response => {
-      res.status(200).json({ message: 'User created' })
+      console.log('response to createNewUser', response);
+      req.body.user_id=response.user_id
+      req.body.display_name=response.username
+      next()
+      // res.status(200).json({ message: 'User created' })
     })
     .catch(err => {
       console.log(err)
@@ -72,7 +77,7 @@ class UsersController {
   }
 
   static loginUser (req, res, next) {
-    let { email, password, userId } = req.body
+    let { email, password } = req.body
     Model.login(email, password)
       .then(token => {
         // console.log('token:', token);
