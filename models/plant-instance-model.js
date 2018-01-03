@@ -28,6 +28,15 @@ class PlantInstanceModel {
     return db('plant_instances')
   }
 
+  static getGarden(id){
+    console.log('get garden model', id);
+    return db('plant_instances')
+    .where({
+      completed: true,
+      user_id: id
+    })
+    .returning('*')
+  }
 //   static update(id){
 //
 //   }
