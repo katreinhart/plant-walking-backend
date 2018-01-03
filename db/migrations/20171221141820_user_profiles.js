@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
     table.increments()
     table.boolean('is_admin').notNullable().defaultTo(0)
 
-    table.integer('plant_instances_id').notNullable()
+    table.integer('plant_instances_id') 
     table.foreign('plant_instances_id').references('id').inTable('plant_instances')
 
     table.string('display_name')

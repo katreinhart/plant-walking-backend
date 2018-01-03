@@ -63,7 +63,6 @@ class UsersController {
   static createNewUser(req, res, next) {
     console.log('------- user controller signup function -------')
     Model.signup(req.body).then(response => {
-      console.log(response)
       res.status(200).json({ message: 'User created' })
     })
     .catch(err => {

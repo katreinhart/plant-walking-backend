@@ -20,7 +20,6 @@ class StepsController {
   }
 
   static addSteps(req, res, next) {
-    console.log('add steps function')
     const body = {user_id: req.body.user_id, number_of_steps: req.body.number_of_steps}
     Model.addSteps(body).then(result => {
       next()
@@ -70,7 +69,7 @@ class StepsController {
     })
     .catch(err => {
       next({
-        err, 
+        err,
         message: 'error in update current user plant function'
       })
     })
@@ -82,7 +81,7 @@ class StepsController {
     if(req.body.steps_required <= req.body.progress) {
       // this.resetProgress()
       res.status(200).json({
-        user_id, 
+        user_id,
         plant_instance_id,
         plant_type_id,
         steps_required,
@@ -91,8 +90,8 @@ class StepsController {
         finished: true
       })
     } else {
-      res.status(200).json({ 
-        user_id, 
+      res.status(200).json({
+        user_id,
         plant_instance_id,
         plant_type_id,
         steps_required,
@@ -107,11 +106,11 @@ class StepsController {
     UserProfilesModel.getOneUserProfile(req.body.user_id).then(([user]) => {
       const plant_instance_id = user.plant_instances_id
       req.body.plant_instance_id = plant_instance_id
-      next() 
+      next()
     })
     .catch(err => {
       next({
-        err, 
+        err,
         message: 'Error in get current user plant function'
       })
     })

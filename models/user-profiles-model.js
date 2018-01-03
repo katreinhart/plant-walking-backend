@@ -9,6 +9,13 @@ class userProfilesModel {
     .where({id})
   }
 
+  static createUserProfile(body){
+    console.log('Model body',body);
+    return db('user_profiles')
+    .insert(body)
+    .returning('*')
+  }
+
 }
 
 module.exports = userProfilesModel
