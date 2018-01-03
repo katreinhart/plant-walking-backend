@@ -1,6 +1,5 @@
 const Model = require('../models/user-profiles-model.js')
 
-
 class userProfilesController {
 
   static getOneUserProfile(req, res, next) {
@@ -13,7 +12,6 @@ class userProfilesController {
         next({error: 'User not found :(  '})
       }
     })
-
   }
 }
 
