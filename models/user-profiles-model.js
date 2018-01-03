@@ -18,8 +18,9 @@ class userProfilesModel {
 
   static updateUserProfile(id, body) {
     console.log('Model user profile update')
+    console.log(body)
     return db('user_profiles')
-      .where({ id })
+      .where({ user_id: id })
       .update(body)
       .returning('*')
   }
