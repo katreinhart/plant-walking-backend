@@ -5,15 +5,15 @@ console.log('users router');
 
 router.get('/', controller.getAll)
 router.post('/register',
-  controller.fieldsExist,
-  controller.prune,
+  controller.registerFieldsExist,
+  controller.registerPrune,
   controller.createNewUser,
   UserProfileModel.createUserProfile,
 )
 
 router.post('/login',
-  controller.fieldsExist,
-  controller.prune,
+  controller.loginFieldsExist,
+  controller.loginPrune,
   controller.loginUser,
   controller.getUserInfo,
   controller.getPlantInstance,

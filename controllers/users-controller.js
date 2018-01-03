@@ -3,7 +3,8 @@ const UserProfileModel = require('../models/user-profiles-model.js')
 const PlantInstanceModel = require('../models/plant-instance-model.js')
 console.log('users controller here');
 const jwt = require('jsonwebtoken')
-const fields = ['username','email', 'password']
+const loginFields = ['email', 'password']
+const registerFields = ['username','email', 'password']
 
 class UsersController {
 
@@ -13,9 +14,9 @@ class UsersController {
     })
   }
 
-  static fieldsExist(req, res, next) {
+  static registerFieldsExist(req, res, next) {
     const errors = []
-    fields.forEach(field => {
+    registerFields.forEach(field => {
       if(!req.body.hasOwnProperty(field)) {
         errors.push(`${field} is required`)
       }
@@ -29,9 +30,34 @@ class UsersController {
     }
   }
 
-  static prune(req, res, next) {
+  static loginFieldsExist(req, res, next) {
+    const errors = []
+    loginFields.forEach(field => {
+      if(!req.body.hasOwnProperty(field)) {
+        errors.push(`${field} is required`)
+      }
+    })
+
+    if(errors.length) {
+      next({ status: 400, message: 'There were errors', errors})
+    }
+    else {
+      next()
+    }
+  }
+
+  static registerPrune(req, res, next) {
     Object.keys(req.body).forEach(key => {
-      if(!fields.includes(key)) {
+      if(!registerFields.includes(key)) {
+        delete req.body.key
+      }
+    })
+    next()
+  }
+
+  static loginPrune(req, res, next) {
+    Object.keys(req.body).forEach(key => {
+      if(!loginFields.includes(key)) {
         delete req.body.key
       }
     })
