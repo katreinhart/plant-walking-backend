@@ -16,12 +16,12 @@ class UsersController {
     fields.forEach(field => {
       if(!req.body.hasOwnProperty(field)) {
         errors.push(`${field} is required`)
-      } 
+      }
     })
 
     if(errors.length) {
       next({ status: 400, message: 'There were errors', errors})
-    } 
+    }
     else {
       next()
     }
@@ -51,10 +51,12 @@ class UsersController {
   static loginUser (req, res, next) {
     const { email, password } = req.body
     Model.login(email, password)
-      .then(token => res.json({ token }))
+      .then(token => {
+        console.log('token:', token);
+        res.json({ token })})
       .catch(err => {
-        console.log(err)
-        next({ error: err.body })
+        console.log('user controller', err);
+        next({ status:401, err })
       })
   }
 }
