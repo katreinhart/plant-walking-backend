@@ -73,14 +73,12 @@ class UsersController {
   }
 
   static loginUser (req, res, next) {
-    let { email, password, userId } = req.body
+    let { email, password } = req.body
     Model.login(email, password)
       .then(token => {
-        // console.log('token:', token);
         let decoded = jwt.decode(token)
         req.body.userId = decoded.sub.id
         req.body.token = token
-        let { email, userId } = req.body
         next()
       })
       .catch(err => {
