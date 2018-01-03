@@ -76,14 +76,19 @@ class UsersController {
 
   static getPlantInstance(req, res, next){
     let id = req.body.plantInstanceId
-    console.log(req.body.plantInstanceId);
-    PlantInstanceModel.getOne(id).then(plantInstance => {
-      req.body.progress = plantInstance.progress
-      req.body.plant_types_id = plantInstance.plant_types_id
-      console.log('body', req.body);
-      let {email, token, userId, plantInstanceId, progress, plant_types_id} = req.body
-      res.json({ email, token, userId, plantInstanceId, progress, plant_types_id })
-    })
+    console.log('plant instance:', req.body.plantInstanceId);
+    if(id) {
+      PlantInstanceModel.getOne(id).then(plantInstance => {
+        req.body.progress = plantInstance.progress
+        req.body.plant_types_id = plantInstance.plant_types_id
+        console.log('body', req.body);
+        let {email, token, userId, plantInstanceId, progress, plant_types_id} = req.body
+        res.json({ email, token, userId, plantInstanceId, progress, plant_types_id })
+      })
+    } else {
+      const { email, token, userId } = req.body
+      res.json({ email, token, userId, })
+    }
   }
 
   static createNewUser(req, res, next) {
