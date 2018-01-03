@@ -10,14 +10,16 @@ class StepsModel {
 
   static getAllUserSteps(user_id){
     return db('steps')
-    .where({user_id}).returning('*')
+      .where({user_id})
+      .returning('*')
   }
 
   static addSteps(body){
-    return db('steps').insert(body).returning('*')
+    return db('steps')
+      .insert(body)
+      .returning('*')
   }
 
 }
-
 
 module.exports = StepsModel;

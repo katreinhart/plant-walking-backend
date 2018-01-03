@@ -34,7 +34,6 @@ app.use((req, res, next)=> {
   res.status(status).json({status, message})
 })
 
-
 app.listen(port, () => {
   console.log('Listening on port:', port)
 })

@@ -4,9 +4,9 @@ const db = require('../db/connection.js')
 class PlantInstanceModel {
 
   static getOne(id){
-  console.log('getOne', id);
     return db('plant_instances')
     .where({id})
+    .first()
   }
 
   static addToProgress(stepsToAdd, id){

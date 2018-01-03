@@ -20,6 +20,7 @@ class StepsController {
   }
 
   static addSteps(req, res, next) {
+    console.log('add steps function')
     const body = {user_id: req.body.user_id, number_of_steps: req.body.number_of_steps}
     Model.addSteps(body).then(result => {
       next()
@@ -33,6 +34,7 @@ class StepsController {
   }
 
   static checkPlantTypeStepsRequired(req, res, next) {
+    console.log('check plant type steps required function')
     PlantTypesModel.getOnePlantType(req.body.plant_type_id).then(plantType => {
       req.body.steps_required = plantType.steps_required
       next()
@@ -46,7 +48,9 @@ class StepsController {
   }
 
   static getActivePlantType(req, res, next) {
-    PlantInstanceModel.getOne(req.body.plant_instance_id).then(([plantInstance]) => {
+    console.log('get active plant type function')
+    PlantInstanceModel.getOne(req.body.plant_instance_id).then((plantInstance) => {
+      console.log(plantInstance)
       req.body.plant_type_id = plantInstance.plant_types_id
       req.body.progress = plantInstance.progress
       next()
@@ -60,6 +64,7 @@ class StepsController {
   }
 
   static updateUserCurrentPlant(req, res, next) {
+    console.log('update user current plant function')
     PlantInstanceModel.addToProgress(req.body.number_of_steps, req.body.plant_instance_id).then(_ => {
       next()
     })
@@ -72,9 +77,10 @@ class StepsController {
   }
 
   static isPlantFinished(req, res, next) {
+    console.log('is plant finished function')
     const { user_id, plant_instance_id, plant_type_id, number_of_steps, steps_required, progress } = req.body
     if(req.body.steps_required <= req.body.progress) {
-      this.resetProgress()
+      // this.resetProgress()
       res.status(200).json({
         user_id, 
         plant_instance_id,
@@ -82,7 +88,7 @@ class StepsController {
         steps_required,
         progress,
         number_of_steps_added: number_of_steps,
-        'finished': true
+        finished: true
       })
     } else {
       res.status(200).json({ 
@@ -92,7 +98,7 @@ class StepsController {
         steps_required,
         progress,
         number_of_steps_added: number_of_steps,
-        'finished': false
+        finished: false
       })
     }
   }
@@ -101,7 +107,7 @@ class StepsController {
     UserProfilesModel.getOneUserProfile(req.body.user_id).then(([user]) => {
       const plant_instance_id = user.plant_instances_id
       req.body.plant_instance_id = plant_instance_id
-      next() // goes to updateCurrentUserPlant
+      next() 
     })
     .catch(err => {
       next({
@@ -121,7 +127,7 @@ class StepsController {
       next()
     }
     else{
-      next({error: 'Not valid input'})
+      next({ error: 'Not valid input' })
     }
   }
 }
