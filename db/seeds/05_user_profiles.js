@@ -9,7 +9,9 @@ exports.seed = function(knex, Promise) {
         {id: 2, is_admin:false, plant_instances_id:2, user_id:2, display_name:'Flower Child'},
         {id: 3, is_admin:false, plant_instances_id:3, user_id:3, display_name:'Lovely Lilly'},
         {id: 4, is_admin:false, plant_instances_id:4, user_id:4, display_name:'Lucky Lilly'},
-
       ]);
-    });
+    })
+    .then(()=>{
+      return knex.raw(`SELECT setval('user_profiles_id_seq', (SELECT MAX(id) FROM user_profiles))`)
+    })
 };
