@@ -22,6 +22,7 @@ class StepsController {
   static addSteps(req, res, next) {
     const body = {user_id: req.body.user_id, number_of_steps: req.body.number_of_steps}
     Model.addSteps(body).then(result => {
+      console.log('steps added')
       next()
     })
     .catch(err => {
@@ -106,6 +107,7 @@ class StepsController {
     UserProfilesModel.getOneUserProfile(req.body.user_id).then(([user]) => {
       const plant_instance_id = user.plant_instances_id
       req.body.plant_instance_id = plant_instance_id
+      console.log('get current user plant func', req.body)
       next()
     })
     .catch(err => {
@@ -132,3 +134,12 @@ class StepsController {
 }
 
 module.exports = StepsController
+
+
+//   controller.validate, :check:
+//   controller.addSteps, :check:
+//   controller.getCurrentUserPlant, 
+//   controller.updateUserCurrentPlant,
+//   controller.getActivePlantType,
+//   controller.checkPlantTypeStepsRequired,
+//   controller.isPlantFinished
