@@ -5,22 +5,22 @@ class PlantInstanceModel {
 
   static getOne(id){
     return db('plant_instances')
-    .where({id})
-    .first()
+      .where({id})
+      .first()
   }
 
   static addToProgress(stepsToAdd, id){
     return db('plant_instances')
-    .where({id})
-    .increment('progress', stepsToAdd)
-    .returning('*')
+      .where({id})
+      .increment('progress', stepsToAdd)
+      .returning('*')
   }
 
   static resetProgress(id){
     return db('plant_instances')
-    .where({id})
-    .update('progress', 0)
-    .update('completed', true)
+      .where({id})
+      .update('progress', 0)
+      .update('completed', true)
 
   }
 
@@ -32,7 +32,16 @@ class PlantInstanceModel {
 //
 //   }
 //
-//   static newInstance(){}
+  static createNewInstance({user_id, plant_types_id}){
+    console.log('plant instance model, create new instance', plant_types_id)
+    return db('plant_instances')
+      .insert({
+        user_id,
+        plant_types_id,
+        completed: false
+      })
+      .returning('*')
+  }
 }
 
 

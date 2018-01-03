@@ -1,4 +1,5 @@
 const Model = require('../models/user-profiles-model.js')
+const PlantInstanceModel = require('../models/plant-instance-model')
 
 class userProfilesController {
 
@@ -15,19 +16,32 @@ class userProfilesController {
   }
 
   static createUserProfile(req, res, next){
-    console.log('creatingUP', req.body);
+    // console.log('creatingUP', req.body);
     const body = {
       user_id: req.body.user_id,
       display_name:req.body.display_name,
       plant_instances_id: req.body.plant_instances_id,
       is_admin: false,
     }
-    console.log('body', body);
+    // console.log('body', body);
 
     Model.createUserProfile(body).then( response => {
-      console.log('response',response);
+      // console.log('response',response);
 
       res.json({response})
+    })
+  }
+
+  static updateUserProfile(req, res, next) {
+    console.log('updating user profile', req.body)
+    const body = {
+      user_id: req.body.user_id,
+      plant_types_id: req.body.plant_types_id
+    }
+
+    PlantInstanceModel.createNewInstance(body).then(result => {
+      console.log(result)
+      res.status(200).json({result})
     })
   }
 }
