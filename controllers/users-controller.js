@@ -55,8 +55,8 @@ class UsersController {
       req.body.progress = plantInstance.progress
       req.body.plant_types_id = plantInstance.plant_types_id
       console.log('body', req.body);
-      let {email, userId, plantInstanceId, progress, plant_types_id} = req.body
-      res.json({ email, userId, plantInstanceId, progress, plant_types_id })
+      let {email, token, userId, plantInstanceId, progress, plant_types_id} = req.body
+      res.json({ email, token, userId, plantInstanceId, progress, plant_types_id })
     })
   }
 
@@ -79,10 +79,9 @@ class UsersController {
         // console.log('token:', token);
         let decoded = jwt.decode(token)
         req.body.userId = decoded.sub.id
+        req.body.token = token
         let { email, userId } = req.body
         next()
-        console.log('loginUser', req.body);
-        // res.json({ token, userId })
       })
       .catch(err => {
         console.log('user controller', err);
