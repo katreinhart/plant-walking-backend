@@ -7,6 +7,7 @@ class PlantInstanceModel {
   console.log('getOne', id);
     return db('plant_instances')
     .where({id})
+    .first()
   }
 
   static addToProgress(stepsToAdd, id){

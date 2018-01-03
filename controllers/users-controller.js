@@ -1,6 +1,8 @@
 const Model = require('../models/users-model.js')
+const UserProfileModel = require('../models/user-profiles-model.js')
+const PlantInstanceModel = require('../models/plant-instance-model.js')
 console.log('users controller here');
-
+const jwt = require('jsonwebtoken')
 const fields = ['email', 'password']
 
 class UsersController {
@@ -36,6 +38,28 @@ class UsersController {
     next()
   }
 
+  static getUserInfo(req, res, next) {
+    console.log('getUserInfo: ---', req.body);
+    UserProfileModel.getOneUserProfile(req.body.userId).then(user => {
+      console.log('getinfo', user[0].plant_instances_id);
+      req.body.plantInstanceId = user[0].plant_instances_id
+      // return req.body
+      next()
+    })
+  }
+
+  static getPlantInstance(req, res, next){
+    let id = req.body.plantInstanceId
+    console.log(req.body.plantInstanceId);
+    PlantInstanceModel.getOne(id).then(plantInstance => {
+      req.body.progress = plantInstance.progress
+      req.body.plant_types_id = plantInstance.plant_types_id
+      console.log('body', req.body);
+      let {email, userId, plantInstanceId, progress, plant_types_id} = req.body
+      res.json({ email, userId, plantInstanceId, progress, plant_types_id })
+    })
+  }
+
   static createNewUser(req, res, next) {
     console.log('------- user controller signup function -------')
     Model.signup(req.body).then(response => {
@@ -49,11 +73,17 @@ class UsersController {
   }
 
   static loginUser (req, res, next) {
-    const { email, password } = req.body
+    let { email, password, userId } = req.body
     Model.login(email, password)
       .then(token => {
-        console.log('token:', token);
-        res.json({ token })})
+        // console.log('token:', token);
+        let decoded = jwt.decode(token)
+        req.body.userId = decoded.sub.id
+        let { email, userId } = req.body
+        next()
+        console.log('loginUser', req.body);
+        // res.json({ token, userId })
+      })
       .catch(err => {
         console.log('user controller', err);
         next({ status:401, err })

@@ -3,9 +3,10 @@ const db = require('../db/connection.js')
 
 class userProfilesModel {
 
-  static getOneUserProfile(user_id){
+  static getOneUserProfile(id){
+    console.log('user', id);
     return db('user_profiles')
-    .where({user_id})
+    .where({id})
   }
 
 }
