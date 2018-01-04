@@ -20,10 +20,15 @@ class StepsModel {
       .returning('*')
   }
 
-  static editSteps(body, id){
+  static editSteps(newStep, id){
+
     return db('steps')
       .where({id})
-      
+      .update({
+        number_of_steps:newStep
+      })
+      .returning('*')
+
   }
 }
 

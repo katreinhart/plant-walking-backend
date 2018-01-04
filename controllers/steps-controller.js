@@ -134,10 +134,12 @@ class StepsController {
 
 
   static editSteps(req, res, next){
-    console.log('edit me baby',req.body);
-    let id = req.params.id
+    console.log('edit me ',req.body);
+    let id = req.body.id
+    let newStep = req.body.number_of_steps
     console.log(id);
-    Model.editSteps(req.body, id).then(response => {
+    Model.editSteps(newStep, id).then(response => {
+      console.log('resposney', response);
       res.status(200).json({response})
     })
   }

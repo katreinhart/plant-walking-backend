@@ -14,6 +14,6 @@ router.post('/',
 )
 router.get('/:id', controller.getAllUserSteps)
 router.get('/', controller.getAll)
-router.patch('/:id', controller.editSteps)
+router.patch('/', controller.editSteps)
 
 module.exports = router;
