@@ -131,14 +131,24 @@ class StepsController {
       next({ error: 'Not valid input' })
     }
   }
-}
 
+
+  static editSteps(req, res, next){
+    console.log('edit me baby',req.body);
+    let id = req.params.id
+    console.log(id);
+    Model.editSteps(req.body, id).then(response => {
+      res.status(200).json({response})
+    })
+  }
+
+}
 module.exports = StepsController
 
 
 //   controller.validate, :check:
 //   controller.addSteps, :check:
-//   controller.getCurrentUserPlant, 
+//   controller.getCurrentUserPlant,
 //   controller.updateUserCurrentPlant,
 //   controller.getActivePlantType,
 //   controller.checkPlantTypeStepsRequired,

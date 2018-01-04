@@ -3,7 +3,7 @@ const controller = require('../controllers/steps-controller')
 
 console.log('steps router');
 
-router.post('/', 
+router.post('/',
   controller.validate,
   controller.addSteps,
   controller.getCurrentUserPlant,
@@ -14,6 +14,6 @@ router.post('/',
 )
 router.get('/:id', controller.getAllUserSteps)
 router.get('/', controller.getAll)
-
+router.patch('/:id', controller.editSteps)
 
 module.exports = router;

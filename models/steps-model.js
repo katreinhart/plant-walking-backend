@@ -20,6 +20,11 @@ class StepsModel {
       .returning('*')
   }
 
+  static editSteps(body, id){
+    return db('steps')
+      .where({id})
+      
+  }
 }
 
 module.exports = StepsModel;

@@ -8,3 +8,4 @@ router.get('/garden/:id', controller.getGarden)
 router.get('/', controller.getAll)
 
 module.exports = router
+  
