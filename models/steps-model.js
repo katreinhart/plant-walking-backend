@@ -11,6 +11,7 @@ class StepsModel {
   static getAllUserSteps(user_id){
     return db('steps')
       .where({user_id})
+      .orderBy('created_at', 'asc')
       .returning('*')
   }
 
@@ -18,6 +19,7 @@ class StepsModel {
     return db('steps')
       .insert(body)
       .returning('*')
+
   }
 
   static editSteps(newStep, id){
