@@ -51,6 +51,17 @@ class PlantInstanceModel {
       })
       .returning('*')
   }
+
+  static updatePlantInstance(id, body) {
+    const { completed } = body
+    return db('plant_instances')
+      .where({ id }) 
+      .update({ 
+        completed,
+        completed_on: new Date().toUTCString()
+      })
+      .returning('*')
+  }
 }
 
 
