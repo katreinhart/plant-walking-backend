@@ -32,14 +32,12 @@ class PlantInstanceController {
     let id = req.params.id
 
     Model.getGarden(id).then(garden => {
-      console.log('controller get Garden', garden);
       res.json({garden})
     })
   }
 
   static updatePlantInstance(req, res, next) {
     Model.updatePlantInstance(req.params.id, req.body).then(response => {
-      console.log('updated plant instance in model, responding 200')
       res.status(200).json({ response })
     })
   }
