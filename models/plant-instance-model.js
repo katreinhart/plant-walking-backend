@@ -1,6 +1,9 @@
 const db = require('../db/connection.js')
-// console.log('PI model');
 
+/*
+  I don't know if `PlantInstance` is the best name for a class.
+  Just `Plant` might be better.
+*/
 class PlantInstanceModel {
 
   static getOne(id){
@@ -37,10 +40,9 @@ class PlantInstanceModel {
     })
     .returning('*')
   }
-//   static update(id){
-//
-//   }
-//
+  
+  // Remove dead code!
+  
   static createNewInstance({user_id, plant_types_id}){
     console.log('plant instance model, create new instance', plant_types_id)
     return db('plant_instances')
