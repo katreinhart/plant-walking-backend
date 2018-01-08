@@ -2,7 +2,7 @@
 exports.up = function(knex, Promise) {
   return knex.schema.createTable('user_profiles', table => {
     table.increments()
-    table.boolean('is_admin').notNullable().defaultTo(0)
+    table.boolean('is_admin').notNullable().defaultTo(0) // Is this supposed to default to 0? 
 
     table.integer('plant_instances_id') 
     table.foreign('plant_instances_id').references('id').inTable('plant_instances')
