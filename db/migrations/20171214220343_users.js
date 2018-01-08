@@ -4,6 +4,7 @@ exports.up = function(knex, Promise) {
     table.increments();
     table.string('email', 225).notNullable().defaultTo('')
     table.string('password', 225).notNullable()
+    // Where are timestamps?  :(
   })
 };
 
